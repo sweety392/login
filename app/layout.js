@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import {WishlistProvider} from "./context/wishlistContext"
 
 import Providers from "./providers";
-import Header from "./components/admin/Header";
+// import Header from "./components/admin/Header";
 
 export default function RootLayout({
   children,
@@ -18,8 +18,7 @@ export default function RootLayout({
         <Providers>
            <WishlistProvider>
           <CartProvider>
-            <Header/>
-           
+            
           {children}
           
           <Toaster/>

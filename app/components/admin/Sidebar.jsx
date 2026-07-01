@@ -23,6 +23,10 @@ const menuItems = [
     name:"Orders",
     path:"/admin/orders"
   },
+   {
+    name: "Banner",
+    path: "/admin/banner",  
+  },
 
   {
     name:"Reports",
