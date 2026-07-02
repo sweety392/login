@@ -11,7 +11,7 @@ const menuItems = [
 
   {
     name:"Products",
-    path:"/admin/products/add"
+    path:"/admin/product"
   },
 
   {

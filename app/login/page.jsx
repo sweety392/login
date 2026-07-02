@@ -14,6 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
     try{
       const response = await axios.post("/api/login",{email,password})
+      console.log(response.data);
       if(response.data.success){
         if(response.data.role==="admin"){
           router.push("/admin")

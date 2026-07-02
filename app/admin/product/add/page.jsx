@@ -348,7 +348,7 @@ export default function AddProductPage() {
 
 
           {/* Button */}
-
+          
           <button
 
             type="submit"
@@ -363,6 +363,7 @@ export default function AddProductPage() {
 
           </button>
 
+          
 
 
         </form>
