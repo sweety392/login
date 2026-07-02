@@ -328,7 +328,7 @@ Shop
 
 </Link>
 
-<Link href="/categories">
+<Link href="/category">
 
 Categories
 
