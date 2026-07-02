@@ -98,365 +98,170 @@ router.push(
 }
 
 
-return(
-
-<div className="w-full max-w-2xl mx-auto">
-
-  <div className="relative">
-
-    {/* Search Icon */}
-
-    <FiSearch
-
+return (
+  <div className="relative w-full max-w-3xl mx-auto" ref={dropDownRef}>
+    <div
       className="
-
-      absolute
-
-      left-5
-
-      top-1/2
-
-      -translate-y-1/2
-
-      text-gray-500
-
-      text-xl
-
-      "
-
-    />
-
-
-
-    {/* Input */}
-
-    <input
-
-      type="text"
-
-      value={keyword}
-
-      onChange={(e)=>
-
-        setKeyword(
-
-          e.target.value
-
-        )
-
-      }
-
-      placeholder="Search products..."
-
-      className="
-
-      w-full
-
-      h-14
-
-      pl-14
-
-      pr-32
-
-      rounded-full
-
+      flex
+      items-center
+      bg-white/90
+      backdrop-blur-lg
       border
-
-      border-gray-300
-
-      outline-none
-
-      shadow-sm
-
-      "
-
-    />
-    <VoiceSearch 
-    setKeyword={setKeyword}
-    setIsListening={setIsListening}
-    isListening={isListening}
-    
-    />
-
-
-
-    {/* Button */}
-
-    <button
-
-      onClick={handleSearch}
-
-      className="
-
-      absolute
-
-      right-2
-
-      top-1/2
-
-      -translate-y-1/2
-
-      bg-[#3BB77E]
-
-      text-white
-
-      px-6
-
-      py-3
-
+      border-gray-200
       rounded-full
-
-      "
-
+      shadow-xl
+      hover:shadow-2xl
+      transition-all
+      duration-300
+      px-3
+      h-16
+    "
     >
+      {/* Search Icon */}
 
-      Search
+      <FiSearch
+        className="
+        text-2xl
+        text-[#3BB77E]
+        ml-2
+        mr-3
+        "
+      />
 
-    </button>
+      {/* Input */}
 
+      <input
+        type="text"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        placeholder="Search Products, Brands & Categories..."
+        className="
+          flex-1
+          outline-none
+          bg-transparent
+          text-gray-700
+          placeholder:text-gray-400
+          text-[16px]
+        "
+      />
 
+      {/* Voice Search */}
 
+      <VoiceSearch
+        setKeyword={setKeyword}
+        setIsListening={setIsListening}
+        isListening={isListening}
+      />
 
+      {/* Divider */}
+
+      <div className="h-8 w-px bg-gray-300 mx-4"></div>
+
+      {/* Search Button */}
+
+      <button
+        onClick={handleSearch}
+        className="
+        px-7
+        h-11
+        rounded-full
+        bg-gradient-to-r
+        from-[#3BB77E]
+        to-emerald-500
+        text-white
+        font-semibold
+        shadow-lg
+        hover:scale-105
+        hover:shadow-xl
+        transition-all
+        duration-300
+        "
+      >
+        Search
+      </button>
+    </div>
 
     {/* Dropdown */}
 
-    {
+    {showDropdown && (
+      <div
+        className="
+        absolute
+        top-20
+        w-full
+        bg-white
+        rounded-3xl
+        shadow-2xl
+        border
+        border-gray-100
+        overflow-hidden
+        max-h-[420px]
+        overflow-y-auto
+        z-50
+        "
+      >
+        {loading && (
+          <div className="p-5 text-center text-gray-500">
+            Searching...
+          </div>
+        )}
 
-      showDropdown
+        {!loading && liveSuggestion.length === 0 && (
+          <div className="p-5 text-center text-gray-500">
+            No Products Found
+          </div>
+        )}
 
-      &&
-
-      (
-
-        <div ref={dropDownRef}
-        
-
-          className="
-
-          absolute
-
-          top-16
-
-          left-0
-
-          w-full
-
-          bg-white
-
-          rounded-xl
-
-          shadow-xl
-
-          z-50
-
-          max-h-96
-
-          overflow-y-auto
-
-          "
-
-        >
-
-
-
-
-          {
-
-            loading
-
-            &&
-
-            <p
-
-              className="p-4"
-
+        {!loading &&
+          liveSuggestion.map((item) => (
+            <div
+              key={item._id}
+              onClick={() => {
+                router.push(`/searchPage?q=${item.title}`);
+                setShowDropdown(false);
+              }}
+              className="
+              flex
+              items-center
+              gap-4
+              p-4
+              hover:bg-green-50
+              transition-all
+              duration-200
+              cursor-pointer
+              border-b
+              last:border-none
+              "
             >
-
-              Searching...
-
-            </p>
-
-          }
-
-
-
-
-
-          {
-
-            !loading
-
-            &&
-
-            liveSuggestion.length===0
-
-            &&
-
-            (
-
-              <p
-
+              <img
+                src={item.images?.[0]}
+                alt={item.title}
                 className="
-
-                p-4
-
-                text-gray-500
-
+                w-16
+                h-16
+                rounded-xl
+                object-cover
+                border
                 "
-
-              >
-
-                No Results Found
-
-              </p>
-
-            )
-
-          }
-
-
-
-
-
-          {
-
-            liveSuggestion.map((item)=>(
-
-              <div
-
-                key={item._id}
-
-                onClick={()=>{
-
-                  router.push(
-
-                    `/searchPage?q=${item.title}`
-
-                  );
-
-
-
-                  setShowDropdown(false);
-
-                }}
-
-                className="
-
-                flex
-
-                items-center
-
-                gap-4
-
-                p-3
-
-                hover:bg-gray-100
-
-                cursor-pointer
-
-                "
-
-              >
-
-
-
-
-                <img
-
-                  src={
-
-                    item.images?.[0]
-
-                  }
-
-                  alt={
-
-                    item.title
-
-                  }
-
-                  className="
-
-                  w-14
-
-                  h-14
-
-                  rounded
-
-                  object-cover
-
-                  "
-
-                />
-
-
-
-
-
-                <div>
-
-                  <h2
-
-                    className="font-semibold"
-
-                  >
-
-                    {item.title}
-
-                  </h2>
-
-
-
-                  <p
-
-                    className="
-
-                    text-gray-500
-
-                    "
-
-                  >
-
-                    {item.brand}
-
-                  </p>
-
-
-
-                  <p
-
-                    className="
-
-                    text-[#3BB77E]
-
-                    font-bold
-
-                    "
-
-                  >
-
-                    ₹ {item.price}
-
-                  </p>
-
-                </div>
-
+              />
+
+              <div className="flex-1">
+                <h2 className="font-semibold text-gray-800">
+                  {item.title}
+                </h2>
+
+                <p className="text-gray-500 text-sm">
+                  {item.brand}
+                </p>
+
+                <p className="text-[#3BB77E] font-bold mt-1">
+                  ₹ {item.price}
+                </p>
               </div>
-
-            ))
-
-          }
-
-
-
-        </div>
-
-      )
-
-    }
-
+            </div>
+          ))}
+      </div>
+    )}
   </div>
-
-</div>
-)
+);
 }

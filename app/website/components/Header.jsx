@@ -21,6 +21,7 @@ ChevronDown
 
 from "lucide-react";
 
+
 export default function Header(){
   const{cart,addToCart}=useCart();
   const{wishList, addToWishList}=useWishlist();
@@ -107,7 +108,10 @@ All Categories
 
 {/* Search */}
 
-<SearchBar/>
+  <SearchBar/>
+
+
+
 
 
 

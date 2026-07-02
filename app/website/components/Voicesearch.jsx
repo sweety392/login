@@ -98,50 +98,31 @@ recognition.start();
 
 
 
-return(
+return (
+  <button
+    type="button"
+    onClick={startListening}
+    className={`
+      flex
+      items-center
+      justify-center
+      w-11
+      h-11
+      rounded-full
+      transition-all
+      duration-300
+      shadow-md
+      mx-2
 
-<button
-
-type="button"
-
-onClick={startListening}
-
-className="
-
-absolute
-
-right-24
-
-top-1/2
-
--translate-y-1/2
-
-text-2xl
-
-"
-
->
-
-<FiMic
-
-className={
-
-isListening
-
-?
-
-"text-red-500"
-
-:
-
-"text-gray-600"
-
-}
-
-/>
-
-</button>
-
-)
+      ${
+        isListening
+          ? "bg-red-500 text-white animate-pulse"
+          : "bg-[#3BB77E] text-white hover:scale-110 hover:shadow-lg"
+      }
+    `}
+  >
+    <FiMic size={20} />
+  </button>
+);
 
 }
